@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/workspaces/chess/ChessEngine/include
 
-CXX_FLAGS = -std=gnu++2a
+CXX_FLAGS = -std=gnu++17
 

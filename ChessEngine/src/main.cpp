@@ -13,8 +13,9 @@ int main() {
         std::cout << "Best move: (" << std::get<0>(bestMove) << ", " << std::get<1>(bestMove)
                   << ") -> (" << std::get<2>(bestMove) << ", " << std::get<3>(bestMove) << ")" << std::endl;
         
-        engine.movePiece(std::get<0>(bestMove), std::get<1>(bestMove), std::get<2>(bestMove), std::get<3>(bestMove));
-
+        bool moveSuccess = engine.movePiece(std::get<0>(bestMove), std::get<1>(bestMove), std::get<2>(bestMove), std::get<3>(bestMove));
+        std::cout << "Move " << (moveSuccess ? "succeeded" : "failed") << std::endl;
+        engine.printBoard();
         // Add a break condition to prevent an infinite loop for demonstration purposes
         // In a real game, you should check for endgame conditions
         char response;

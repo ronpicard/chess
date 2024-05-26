@@ -58,6 +58,7 @@ bool Board::movePiece(int startX, int startY, int endX, int endY) {
 }
 
 bool Board::isMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
     if (startX < 0 || startX >= 8 || startY < 0 || startY >= 8 ||
         endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
         return false;
@@ -70,8 +71,12 @@ bool Board::isMoveLegal(int startX, int startY, int endX, int endY) const {
     char piece = board[startX][startY]->getSymbol();
     bool isWhite = isupper(piece);
 
-    if (board[endX][endY] != nullptr && (isWhite == isupper(board[endX][endY]->getSymbol()))) {
-        return false; // Can't capture own piece
+    // Check if the destination square contains a piece of the same color
+    if (board[endX][endY] != nullptr) {
+        char targetPiece = board[endX][endY]->getSymbol();
+        if ((isWhite && isupper(targetPiece)) || (!isWhite && islower(targetPiece))) {
+            return false; // Can't capture own piece
+        }
     }
 
     switch (tolower(piece)) {
@@ -104,6 +109,11 @@ bool Board::isPathClear(int startX, int startY, int endX, int endY) const {
 }
 
 bool Board::isPawnMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     char piece = board[startX][startY]->getSymbol();
     bool isWhite = isupper(piece);
     int direction = isWhite ? -1 : 1;
@@ -112,18 +122,18 @@ bool Board::isPawnMoveLegal(int startX, int startY, int endX, int endY) const {
     int dx = endX - startX;
     int dy = endY - startY;
 
-    // Normal move
+    // Normal move (one square forward)
     if (dy == 0 && dx == direction && board[endX][endY] == nullptr) {
         return true;
     }
 
-    // Double move from starting position
+    // Double move from starting position (two squares forward)
     if (startX == startRow && dy == 0 && dx == 2 * direction &&
         board[endX][endY] == nullptr && board[startX + direction][startY] == nullptr) {
         return true;
     }
 
-    // Capture move
+    // Capture move (one square diagonally)
     if (std::abs(dy) == 1 && dx == direction && board[endX][endY] != nullptr) {
         return true;
     }
@@ -132,6 +142,11 @@ bool Board::isPawnMoveLegal(int startX, int startY, int endX, int endY) const {
 }
 
 bool Board::isRookMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     if (startX == endX || startY == endY) {
         return isPathClear(startX, startY, endX, endY);
     }
@@ -139,24 +154,44 @@ bool Board::isRookMoveLegal(int startX, int startY, int endX, int endY) const {
 }
 
 bool Board::isKnightMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     int dx = std::abs(endX - startX);
     int dy = std::abs(endY - startY);
     return (dx == 2 && dy == 1) || (dx == 1 && dy == 2);
 }
 
 bool Board::isBishopMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     int dx = std::abs(endX - startX);
     int dy = std::abs(endY - startY);
     return dx == dy && isPathClear(startX, startY, endX, endY);
 }
 
 bool Board::isQueenMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     int dx = std::abs(endX - startX);
     int dy = std::abs(endY - startY);
     return (dx == dy || startX == endX || startY == endY) && isPathClear(startX, startY, endX, endY);
 }
 
 bool Board::isKingMoveLegal(int startX, int startY, int endX, int endY) const {
+    // Check if the move is within the bounds of the board
+    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        return false;
+    }
+
     int dx = std::abs(endX - startX);
     int dy = std::abs(endY - startY);
     return dx <= 1 && dy <= 1;
