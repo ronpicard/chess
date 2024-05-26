@@ -1,9 +1,14 @@
 // src/Board.cpp
 #include "Board.h"
 #include <iostream>
+#include <memory>
+#include <utility>
 
 Board::Board() {
-    board.resize(8, std::vector<std::unique_ptr<Piece>>(8, nullptr));
+    board.resize(8);
+    for (auto& row : board) {
+        row.resize(8);
+    }
 }
 
 void Board::initialize() {
@@ -50,6 +55,7 @@ bool Board::movePiece(int startX, int startY, int endX, int endY) {
         return false;
     }
 
+    // Move the piece using std::move
     board[endX][endY] = std::move(board[startX][startY]);
     board[startX][startY] = nullptr;
     return true;
