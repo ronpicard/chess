@@ -4,6 +4,7 @@
 #include "Piece.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 class Board {
 public:
@@ -14,6 +15,9 @@ public:
     void printBoard() const;
     Board clone() const;
     Piece* getPiece(int x, int y) const;
+    std::string getBoardStateHash() const;
+    bool isInCheck(bool isWhite) const;
+    bool hasLegalMoves(bool isWhite) const;
 
 private:
     std::vector<std::vector<std::unique_ptr<Piece>>> board;

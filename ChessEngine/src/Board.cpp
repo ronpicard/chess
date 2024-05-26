@@ -4,6 +4,7 @@
 #include <utility>
 #include <cctype>
 #include <cmath>
+#include <sstream>
 
 Board::Board() {
     board.resize(8);
@@ -15,35 +16,35 @@ Board::Board() {
 void Board::initialize() {
     // Initialize pawns
     for (int i = 0; i < 8; ++i) {
-        board[1][i] = std::make_unique<Piece>('P');
-        board[6][i] = std::make_unique<Piece>('p');
+        board[1][i] = std::make_unique<Piece>('P'); // White pawns
+        board[6][i] = std::make_unique<Piece>('p'); // Black pawns
     }
 
     // Initialize rooks
-    board[0][0] = std::make_unique<Piece>('R');
+    board[0][0] = std::make_unique<Piece>('R'); // White rook
     board[0][7] = std::make_unique<Piece>('R');
-    board[7][0] = std::make_unique<Piece>('r');
+    board[7][0] = std::make_unique<Piece>('r'); // Black rook
     board[7][7] = std::make_unique<Piece>('r');
 
     // Initialize knights
-    board[0][1] = std::make_unique<Piece>('N');
+    board[0][1] = std::make_unique<Piece>('N'); // White knight
     board[0][6] = std::make_unique<Piece>('N');
-    board[7][1] = std::make_unique<Piece>('n');
+    board[7][1] = std::make_unique<Piece>('n'); // Black knight
     board[7][6] = std::make_unique<Piece>('n');
 
     // Initialize bishops
-    board[0][2] = std::make_unique<Piece>('B');
+    board[0][2] = std::make_unique<Piece>('B'); // White bishop
     board[0][5] = std::make_unique<Piece>('B');
-    board[7][2] = std::make_unique<Piece>('b');
+    board[7][2] = std::make_unique<Piece>('b'); // Black bishop
     board[7][5] = std::make_unique<Piece>('b');
 
     // Initialize queens
-    board[0][3] = std::make_unique<Piece>('Q');
-    board[7][3] = std::make_unique<Piece>('q');
+    board[0][3] = std::make_unique<Piece>('Q'); // White queen
+    board[7][3] = std::make_unique<Piece>('q'); // Black queen
 
     // Initialize kings
-    board[0][4] = std::make_unique<Piece>('K');
-    board[7][4] = std::make_unique<Piece>('k');
+    board[0][4] = std::make_unique<Piece>('K'); // White king
+    board[7][4] = std::make_unique<Piece>('k'); // Black king
 }
 
 bool Board::movePiece(int startX, int startY, int endX, int endY) {
@@ -229,4 +230,72 @@ Piece* Board::getPiece(int x, int y) const {
         return nullptr;
     }
     return board[x][y].get();
+}
+
+std::string Board::getBoardStateHash() const {
+    std::stringstream ss;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[i][j] != nullptr) {
+                ss << board[i][j]->getSymbol();
+            } else {
+                ss << '.';
+            }
+        }
+    }
+    return ss.str();
+}
+
+bool Board::isInCheck(bool isWhite) const {
+    int kingX = -1, kingY = -1;
+    char kingSymbol = isWhite ? 'K' : 'k';
+
+    // Find the king
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[i][j] != nullptr && board[i][j]->getSymbol() == kingSymbol) {
+                kingX = i;
+                kingY = j;
+                break;
+            }
+        }
+    }
+
+    // Check if any opposing piece can move to the king's position
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[i][j] != nullptr) {
+                char piece = board[i][j]->getSymbol();
+                // Only consider opponent's pieces
+                if (isWhite != isupper(piece)) {
+                    if (isMoveLegal(i, j, kingX, kingY)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Board::hasLegalMoves(bool isWhite) const {
+    for (int startX = 0; startX < 8; ++startX) {
+        for (int startY = 0; startY < 8; ++startY) {
+            if (board[startX][startY] != nullptr && (isWhite == isupper(board[startX][startY]->getSymbol()))) {
+                for (int endX = 0; endX < 8; ++endX) {
+                    for (int endY = 0; endY < 8; ++endY) {
+                        if (isMoveLegal(startX, startY, endX, endY)) {
+                            Board newBoard = clone();
+                            newBoard.movePiece(startX, startY, endX, endY);
+                            if (!newBoard.isInCheck(isWhite)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }

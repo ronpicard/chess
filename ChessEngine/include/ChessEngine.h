@@ -6,6 +6,9 @@
 #include "Solver.h"
 #include <tuple>
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
 
 class ChessEngine {
 public:
@@ -16,12 +19,19 @@ public:
     std::tuple<int, int, int, int> findBestMove(int depth);
     int evaluateBoard() const;
     void printLegalMoves() const;
+    bool checkDrawByRepetition() const;
+    bool isCheckmate() const;
+    bool isStalemate() const;
+    bool isWhiteTurn() const; // Added this method
 
 private:
     Board board;
     Evaluator evaluator;
     Solver solver;
     bool currentTurn; // true for white, false for black
+    std::unordered_map<std::string, int> boardStateCount;
+
+    void trackBoardState();
 };
 
 #endif // CHESSENGINE_H
