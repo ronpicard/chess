@@ -7,14 +7,29 @@ CMakeFiles/ChessEngine.dir/src/Board.cpp.o: ../src/Board.cpp
 
 CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../include/Board.h
 CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../include/ChessEngine.h
+CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../include/Evaluator.h
 CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../include/Piece.h
+CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../include/Solver.h
 CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o: ../src/ChessEngine.cpp
+
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../include/Board.h
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../include/Evaluator.h
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../include/Piece.h
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../src/Evaluator.cpp
 
 CMakeFiles/ChessEngine.dir/src/Piece.cpp.o: ../include/Piece.h
 CMakeFiles/ChessEngine.dir/src/Piece.cpp.o: ../src/Piece.cpp
 
+CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../include/Board.h
+CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../include/Evaluator.h
+CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../include/Piece.h
+CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../include/Solver.h
+CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../src/Solver.cpp
+
 CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../include/Board.h
 CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../include/ChessEngine.h
+CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../include/Evaluator.h
 CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../include/Piece.h
+CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../include/Solver.h
 CMakeFiles/ChessEngine.dir/src/main.cpp.o: ../src/main.cpp
 

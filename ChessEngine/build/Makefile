@@ -196,6 +196,33 @@ src/ChessEngine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.s
 .PHONY : src/ChessEngine.cpp.s
 
+src/Evaluator.o: src/Evaluator.cpp.o
+
+.PHONY : src/Evaluator.o
+
+# target to build an object file
+src/Evaluator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o
+.PHONY : src/Evaluator.cpp.o
+
+src/Evaluator.i: src/Evaluator.cpp.i
+
+.PHONY : src/Evaluator.i
+
+# target to preprocess a source file
+src/Evaluator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i
+.PHONY : src/Evaluator.cpp.i
+
+src/Evaluator.s: src/Evaluator.cpp.s
+
+.PHONY : src/Evaluator.s
+
+# target to generate assembly for a file
+src/Evaluator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s
+.PHONY : src/Evaluator.cpp.s
+
 src/Piece.o: src/Piece.cpp.o
 
 .PHONY : src/Piece.o
@@ -222,6 +249,33 @@ src/Piece.s: src/Piece.cpp.s
 src/Piece.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Piece.cpp.s
 .PHONY : src/Piece.cpp.s
+
+src/Solver.o: src/Solver.cpp.o
+
+.PHONY : src/Solver.o
+
+# target to build an object file
+src/Solver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.o
+.PHONY : src/Solver.cpp.o
+
+src/Solver.i: src/Solver.cpp.i
+
+.PHONY : src/Solver.i
+
+# target to preprocess a source file
+src/Solver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.i
+.PHONY : src/Solver.cpp.i
+
+src/Solver.s: src/Solver.cpp.s
+
+.PHONY : src/Solver.s
+
+# target to generate assembly for a file
+src/Solver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.s
+.PHONY : src/Solver.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -265,9 +319,15 @@ help:
 	@echo "... src/ChessEngine.o"
 	@echo "... src/ChessEngine.i"
 	@echo "... src/ChessEngine.s"
+	@echo "... src/Evaluator.o"
+	@echo "... src/Evaluator.i"
+	@echo "... src/Evaluator.s"
 	@echo "... src/Piece.o"
 	@echo "... src/Piece.i"
 	@echo "... src/Piece.s"
+	@echo "... src/Solver.o"
+	@echo "... src/Solver.i"
+	@echo "... src/Solver.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

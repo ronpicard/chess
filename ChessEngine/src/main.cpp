@@ -1,12 +1,27 @@
-// src/main.cpp
 #include "ChessEngine.h"
 #include <iostream>
 
 int main() {
     ChessEngine engine;
     engine.start();
-    engine.movePiece(1, 0, 3, 0); // Move white pawn from a2 to a4
-    engine.movePiece(6, 0, 4, 0); // Move black pawn from a7 to a5
-    engine.printBoard();
+    
+    int depth = 3; // Example depth for the minimax algorithm
+
+    while (true) {
+        auto bestMove = engine.findBestMove(depth);
+        
+        std::cout << "Best move: (" << std::get<0>(bestMove) << ", " << std::get<1>(bestMove)
+                  << ") -> (" << std::get<2>(bestMove) << ", " << std::get<3>(bestMove) << ")" << std::endl;
+        
+        engine.movePiece(std::get<0>(bestMove), std::get<1>(bestMove), std::get<2>(bestMove), std::get<3>(bestMove));
+
+        // Add a break condition to prevent an infinite loop for demonstration purposes
+        // In a real game, you should check for endgame conditions
+        char response;
+        std::cout << "Continue (y/n)? ";
+        std::cin >> response;
+        if (response != 'y') break;
+    }
+
     return 0;
 }
