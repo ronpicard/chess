@@ -2,13 +2,11 @@
 #define CHESSENGINE_H
 
 #include "Board.h"
-#include "Evaluator.h"
 #include "Solver.h"
-#include <tuple>
-#include <vector>
+#include "Evaluator.h"
 #include <unordered_map>
-#include <unordered_set>
 #include <string>
+#include <tuple>
 
 class ChessEngine {
 public:
@@ -18,20 +16,20 @@ public:
     void printBoard() const;
     std::tuple<int, int, int, int> findBestMove(int depth);
     int evaluateBoard() const;
-    void printLegalMoves() const;
-    bool checkDrawByRepetition() const;
     bool isCheckmate() const;
     bool isStalemate() const;
-    bool isWhiteTurn() const; // Added this method
+    bool checkDrawByRepetition() const;
+    bool isWhiteTurn() const;
+    void printAllLegalMoves() const;  // Declaration for printing legal moves for both players
 
 private:
     Board board;
-    Evaluator evaluator;
     Solver solver;
-    bool currentTurn; // true for white, false for black
+    Evaluator evaluator;
+    bool currentTurn;
     std::unordered_map<std::string, int> boardStateCount;
-
     void trackBoardState();
+    void printLegalMoves(bool isWhite) const;  // Adjusted to take a boolean argument
 };
 
 #endif // CHESSENGINE_H

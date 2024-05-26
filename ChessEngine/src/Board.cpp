@@ -62,10 +62,12 @@ bool Board::isMoveLegal(int startX, int startY, int endX, int endY) const {
     // Check if the move is within the bounds of the board
     if (startX < 0 || startX >= 8 || startY < 0 || startY >= 8 ||
         endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
+        std::cout << "Move out of bounds: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
         return false;
     }
 
     if (board[startX][startY] == nullptr) {
+        std::cout << "No piece at start position: (" << startX << ", " << startY << ")" << std::endl;
         return false;
     }
 
@@ -76,19 +78,27 @@ bool Board::isMoveLegal(int startX, int startY, int endX, int endY) const {
     if (board[endX][endY] != nullptr) {
         char targetPiece = board[endX][endY]->getSymbol();
         if ((isWhite && isupper(targetPiece)) || (!isWhite && islower(targetPiece))) {
+            std::cout << "Destination contains a piece of the same color: (" << endX << ", " << endY << ")" << std::endl;
             return false; // Can't capture own piece
         }
     }
 
+    bool isLegal = false;
     switch (tolower(piece)) {
-        case 'p': return isPawnMoveLegal(startX, startY, endX, endY);
-        case 'r': return isRookMoveLegal(startX, startY, endX, endY);
-        case 'n': return isKnightMoveLegal(startX, startY, endX, endY);
-        case 'b': return isBishopMoveLegal(startX, startY, endX, endY);
-        case 'q': return isQueenMoveLegal(startX, startY, endX, endY);
-        case 'k': return isKingMoveLegal(startX, startY, endX, endY);
-        default: return false;
+        case 'p': isLegal = isPawnMoveLegal(startX, startY, endX, endY); break;
+        case 'r': isLegal = isRookMoveLegal(startX, startY, endX, endY); break;
+        case 'n': isLegal = isKnightMoveLegal(startX, startY, endX, endY); break;
+        case 'b': isLegal = isBishopMoveLegal(startX, startY, endX, endY); break;
+        case 'q': isLegal = isQueenMoveLegal(startX, startY, endX, endY); break;
+        case 'k': isLegal = isKingMoveLegal(startX, startY, endX, endY); break;
+        default: isLegal = false;
     }
+
+    if (!isLegal) {
+        std::cout << "Move not legal for piece " << piece << ": (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
+    }
+
+    return isLegal;
 }
 
 bool Board::isPathClear(int startX, int startY, int endX, int endY) const {
@@ -123,22 +133,28 @@ bool Board::isPawnMoveLegal(int startX, int startY, int endX, int endY) const {
     int dx = endX - startX;
     int dy = endY - startY;
 
+    std::cout << "Checking pawn move: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
+
     // Normal move (one square forward)
     if (dy == 0 && dx == direction && board[endX][endY] == nullptr) {
+        std::cout << "Normal move legal for pawn." << std::endl;
         return true;
     }
 
     // Double move from starting position (two squares forward)
     if (startX == startRow && dy == 0 && dx == 2 * direction &&
         board[endX][endY] == nullptr && board[startX + direction][startY] == nullptr) {
+        std::cout << "Double move legal for pawn." << std::endl;
         return true;
     }
 
     // Capture move (one square diagonally)
     if (std::abs(dy) == 1 && dx == direction && board[endX][endY] != nullptr) {
+        std::cout << "Capture move legal for pawn." << std::endl;
         return true;
     }
 
+    std::cout << "Pawn move not legal." << std::endl;
     return false;
 }
 
@@ -283,12 +299,14 @@ bool Board::hasLegalMoves(bool isWhite) const {
     for (int startX = 0; startX < 8; ++startX) {
         for (int startY = 0; startY < 8; ++startY) {
             if (board[startX][startY] != nullptr && (isWhite == isupper(board[startX][startY]->getSymbol()))) {
+                std::cout << "Checking moves for piece at (" << startX << ", " << startY << ") - " << board[startX][startY]->getSymbol() << std::endl;
                 for (int endX = 0; endX < 8; ++endX) {
                     for (int endY = 0; endY < 8; ++endY) {
                         if (isMoveLegal(startX, startY, endX, endY)) {
                             Board newBoard = clone();
                             newBoard.movePiece(startX, startY, endX, endY);
                             if (!newBoard.isInCheck(isWhite)) {
+                                std::cout << "Legal move found: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
                                 return true;
                             }
                         }
@@ -297,5 +315,6 @@ bool Board::hasLegalMoves(bool isWhite) const {
             }
         }
     }
+    std::cout << "No legal moves found." << std::endl;
     return false;
 }

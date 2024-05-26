@@ -128,22 +128,9 @@ CMakeFiles/ChessEngine.dir/src/Piece.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ChessEngine.dir/src/Piece.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/chess/ChessEngine/src/Piece.cpp -o CMakeFiles/ChessEngine.dir/src/Piece.cpp.s
 
-CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: CMakeFiles/ChessEngine.dir/flags.make
-CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../src/Evaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/chess/ChessEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o -c /workspaces/chess/ChessEngine/src/Evaluator.cpp
-
-CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/chess/ChessEngine/src/Evaluator.cpp > CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i
-
-CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/chess/ChessEngine/src/Evaluator.cpp -o CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s
-
 CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: CMakeFiles/ChessEngine.dir/flags.make
 CMakeFiles/ChessEngine.dir/src/Solver.cpp.o: ../src/Solver.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/chess/ChessEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ChessEngine.dir/src/Solver.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/chess/ChessEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ChessEngine.dir/src/Solver.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ChessEngine.dir/src/Solver.cpp.o -c /workspaces/chess/ChessEngine/src/Solver.cpp
 
 CMakeFiles/ChessEngine.dir/src/Solver.cpp.i: cmake_force
@@ -154,14 +141,27 @@ CMakeFiles/ChessEngine.dir/src/Solver.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ChessEngine.dir/src/Solver.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/chess/ChessEngine/src/Solver.cpp -o CMakeFiles/ChessEngine.dir/src/Solver.cpp.s
 
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: CMakeFiles/ChessEngine.dir/flags.make
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o: ../src/Evaluator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/chess/ChessEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o -c /workspaces/chess/ChessEngine/src/Evaluator.cpp
+
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/chess/ChessEngine/src/Evaluator.cpp > CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i
+
+CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/chess/ChessEngine/src/Evaluator.cpp -o CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s
+
 # Object files for target ChessEngine
 ChessEngine_OBJECTS = \
 "CMakeFiles/ChessEngine.dir/src/main.cpp.o" \
 "CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o" \
 "CMakeFiles/ChessEngine.dir/src/Board.cpp.o" \
 "CMakeFiles/ChessEngine.dir/src/Piece.cpp.o" \
-"CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o" \
-"CMakeFiles/ChessEngine.dir/src/Solver.cpp.o"
+"CMakeFiles/ChessEngine.dir/src/Solver.cpp.o" \
+"CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o"
 
 # External object files for target ChessEngine
 ChessEngine_EXTERNAL_OBJECTS =
@@ -170,8 +170,8 @@ ChessEngine: CMakeFiles/ChessEngine.dir/src/main.cpp.o
 ChessEngine: CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o
 ChessEngine: CMakeFiles/ChessEngine.dir/src/Board.cpp.o
 ChessEngine: CMakeFiles/ChessEngine.dir/src/Piece.cpp.o
-ChessEngine: CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o
 ChessEngine: CMakeFiles/ChessEngine.dir/src/Solver.cpp.o
+ChessEngine: CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o
 ChessEngine: CMakeFiles/ChessEngine.dir/build.make
 ChessEngine: CMakeFiles/ChessEngine.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspaces/chess/ChessEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ChessEngine"

@@ -9,6 +9,7 @@ ChessEngine::ChessEngine() : solver(evaluator), currentTurn(true) {
 void ChessEngine::start() {
     std::cout << "Chess Engine Started!" << std::endl;
     printBoard();
+    printAllLegalMoves(); // Print all legal moves at the start
 }
 
 bool ChessEngine::movePiece(int startX, int startY, int endX, int endY) {
@@ -28,7 +29,7 @@ void ChessEngine::printBoard() const {
 }
 
 std::tuple<int, int, int, int> ChessEngine::findBestMove(int depth) {
-    printLegalMoves(); // Print legal moves before finding the best move
+    printLegalMoves(currentTurn); // Print legal moves before finding the best move
     std::unordered_set<std::string> statesToAvoid;
     for (const auto& entry : boardStateCount) {
         if (entry.second >= 2) {
@@ -42,13 +43,19 @@ int ChessEngine::evaluateBoard() const {
     return evaluator.evaluate(board);
 }
 
-void ChessEngine::printLegalMoves() const {
-    auto legalMoves = solver.generateLegalMoves(board, currentTurn);
-    std::cout << "Legal moves for " << (currentTurn ? "white" : "black") << ":" << std::endl;
+void ChessEngine::printLegalMoves(bool isWhite) const {
+    auto legalMoves = solver.generateLegalMoves(board, isWhite);
+    std::cout << "Legal moves for " << (isWhite ? "white" : "black") << ":" << std::endl;
     for (const auto& move : legalMoves) {
         std::cout << "(" << std::get<0>(move) << ", " << std::get<1>(move) << ") -> ("
                   << std::get<2>(move) << ", " << std::get<3>(move) << ")" << std::endl;
     }
+}
+
+void ChessEngine::printAllLegalMoves() const {
+    std::cout << "Printing all legal moves at the start of the game." << std::endl;
+    printLegalMoves(true);  // Print legal moves for white
+    printLegalMoves(false); // Print legal moves for black
 }
 
 void ChessEngine::trackBoardState() {
