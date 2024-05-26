@@ -17,7 +17,6 @@ void ChessEngine::movePiece(int startX, int startY, int endX, int endY) {
     } else {
         std::cout << "Move failed!" << std::endl;
     }
-    printBoard();
 }
 
 void ChessEngine::printBoard() {
