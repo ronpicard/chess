@@ -2,6 +2,7 @@
 #define MOVE_H
 
 #include <vector>
+#include <unordered_map>
 #include "Board.h"
 
 struct MoveData {
@@ -18,13 +19,16 @@ public:
     bool isCheckmate(Color color) const;
     bool isStalemate(Color color) const;
     bool isInsufficientMaterial() const;
+    bool isThreefoldRepetition() const;
 
 private:
     Board& board;
+    std::unordered_map<size_t, int> boardStateCounts;
 
     bool isLegalMove(int startX, int startY, int endX, int endY) const;
     bool isPathClear(int startX, int startY, int endX, int endY) const;
     bool moveResolvesCheck(const MoveData& move, Color color) const;
+    size_t getBoardHash() const;
 
     bool isLegalPawnMove(int startX, int startY, int endX, int endY) const;
     bool isLegalKnightMove(int startX, int startY, int endX, int endY) const;

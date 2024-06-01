@@ -15,8 +15,16 @@ string
 ../include/Move.h
 vector
 -
+unordered_map
+-
 Board.h
 ../include/Board.h
+
+/workspaces/chess/ChessEngine/src/Move.cpp
+Move.h
+/workspaces/chess/ChessEngine/src/Move.h
+functional
+-
 
 /workspaces/chess/ChessEngine/src/main.cpp
 iostream

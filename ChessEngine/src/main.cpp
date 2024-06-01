@@ -20,7 +20,7 @@ int main() {
             std::cout << (whiteTurn ? "White" : "Black") << " is in checkmate. Game over." << std::endl;
             break;
         }
-        if (move.isStalemate(currentColor) || move.isInsufficientMaterial()) {
+        if (move.isStalemate(currentColor) || move.isInsufficientMaterial() || move.isThreefoldRepetition()) {
             std::cout << "The game is a draw. Game over." << std::endl;
             break;
         }

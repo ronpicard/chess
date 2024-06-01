@@ -1,6 +1,9 @@
 #include "Move.h"
+#include <functional> // For std::hash
 
-Move::Move(Board& board) : board(board) {}
+Move::Move(Board& board) : board(board) {
+    boardStateCounts[getBoardHash()]++;
+}
 
 bool Move::makeMove(int startX, int startY, int endX, int endY) {
     if (!isLegalMove(startX, startY, endX, endY)) {
@@ -10,6 +13,10 @@ bool Move::makeMove(int startX, int startY, int endX, int endY) {
     // Perform the move
     board.board[endY][endX] = board.board[startY][startX];
     board.board[startY][startX] = {Piece::Empty, Color::None};
+
+    // Update board state counts
+    size_t hash = getBoardHash();
+    boardStateCounts[hash]++;
 
     return true;
 }
@@ -228,4 +235,25 @@ bool Move::isInsufficientMaterial() const {
     }
 
     return false;
+}
+
+bool Move::isThreefoldRepetition() const {
+    for (const auto& entry : boardStateCounts) {
+        if (entry.second >= 3) {
+            return true;
+        }
+    }
+    return false;
+}
+
+size_t Move::getBoardHash() const {
+    std::hash<std::string> hasher;
+    std::string boardString;
+    for (const auto& row : board.board) {
+        for (const auto& square : row) {
+            boardString += std::to_string(static_cast<int>(square.piece));
+            boardString += std::to_string(static_cast<int>(square.color));
+        }
+    }
+    return hasher(boardString);
 }
