@@ -9,7 +9,7 @@ void Board::initializeBoard() {
     // Initialize an 8x8 board with empty squares
     board.resize(8, std::vector<Square>(8, {Piece::Empty, Color::None}));
 
-    // Set up pawns
+    // Set up pawnsre
     for (int i = 0; i < 8; ++i) {
         board[1][i] = {Piece::Pawn, Color::White};
         board[6][i] = {Piece::Pawn, Color::Black};

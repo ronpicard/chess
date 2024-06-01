@@ -1,6 +1,10 @@
 #include <iostream>
-#include <random>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
+#include <random>
+#include <unistd.h>  // For getcwd
 #include "Board.h"
 #include "Move.h"
 #include "AIPlayer.h"
@@ -9,9 +13,40 @@ void printValidMoves(const std::vector<MoveData>& moves);
 MoveData getRandomMove(const std::vector<MoveData>& validMoves);
 
 int main() {
+    // Check the current working directory
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        std::cout << "Current working directory: " << cwd << std::endl;
+    } else {
+        perror("getcwd() error");
+        return 1;
+    }
+
+    // Read the configuration from the text file
+    std::ifstream config_file("config.txt");
+    if (!config_file.is_open()) {
+        std::cerr << "Could not open the config file!" << std::endl;
+        return 1;
+    }
+    
+    int depth = 0;
+    std::string line;
+    while (std::getline(config_file, line)) {
+        std::istringstream iss(line);
+        std::string key;
+        if (std::getline(iss, key, '=') && key == "depth") {
+            iss >> depth;
+        }
+    }
+
+    if (depth == 0) {
+        std::cerr << "Invalid depth value in config file!" << std::endl;
+        return 1;
+    }
+    
     Board board;
     Move move(board);
-    AIPlayer aiPlayer(board, move, 3); // Configure the depth as needed
+    AIPlayer aiPlayer(board, move, depth); // Use the depth from the config file
     bool whiteTurn = true;
 
     while (true) {
