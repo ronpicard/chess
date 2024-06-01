@@ -16,10 +16,10 @@ DISCLAIMER: I used ChatGPT 4o for assitance in this specific project. I've done 
 1. Those who like chess, C++, docker containers, STIG'd images from iron bank, and CMAKE. 
 
 ## Setup:
-git clone "repo"
-open ChessEnginer in VSCode
-reopen in container
-cd build
-cmake ..
-make
+git clone "repo" \
+open ChessEnginer in VSCode \
+reopen in container \
+cd build \
+cmake .. \
+make \
 ./ChessEngine 
