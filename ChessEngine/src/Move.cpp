@@ -199,3 +199,33 @@ bool Move::isStalemate(Color color) const {
     std::vector<MoveData> validMoves = getAllValidMoves(color);
     return validMoves.empty();
 }
+
+bool Move::isInsufficientMaterial() const {
+    int whiteBishops = 0, whiteKnights = 0, blackBishops = 0, blackKnights = 0;
+    bool whiteHasOtherPieces = false, blackHasOtherPieces = false;
+
+    for (int y = 0; y < 8; ++y) {
+        for (int x = 0; x < 8; ++x) {
+            const Square& square = board.board[y][x];
+            if (square.piece == Piece::Empty) continue;
+
+            if (square.color == Color::White) {
+                if (square.piece == Piece::Bishop) whiteBishops++;
+                else if (square.piece == Piece::Knight) whiteKnights++;
+                else if (square.piece != Piece::King) whiteHasOtherPieces = true;
+            } else {
+                if (square.piece == Piece::Bishop) blackBishops++;
+                else if (square.piece == Piece::Knight) blackKnights++;
+                else if (square.piece != Piece::King) blackHasOtherPieces = true;
+            }
+        }
+    }
+
+    if (whiteHasOtherPieces || blackHasOtherPieces) return false;
+
+    if ((whiteBishops <= 1 && whiteKnights <= 1) && (blackBishops <= 1 && blackKnights <= 1)) {
+        return true;
+    }
+
+    return false;
+}

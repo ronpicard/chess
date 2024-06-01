@@ -17,6 +17,7 @@ public:
     bool isKingInCheck(Color color) const;
     bool isCheckmate(Color color) const;
     bool isStalemate(Color color) const;
+    bool isInsufficientMaterial() const;
 
 private:
     Board& board;

@@ -20,8 +20,8 @@ int main() {
             std::cout << (whiteTurn ? "White" : "Black") << " is in checkmate. Game over." << std::endl;
             break;
         }
-        if (move.isStalemate(currentColor)) {
-            std::cout << (whiteTurn ? "White" : "Black") << " is in stalemate. Game over." << std::endl;
+        if (move.isStalemate(currentColor) || move.isInsufficientMaterial()) {
+            std::cout << "The game is a draw. Game over." << std::endl;
             break;
         }
         if (move.isKingInCheck(currentColor)) {
