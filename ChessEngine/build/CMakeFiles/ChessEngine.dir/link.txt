@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/ChessEngine.dir/src/main.cpp.o CMakeFiles/ChessEngine.dir/src/Board.cpp.o CMakeFiles/ChessEngine.dir/src/Move.cpp.o -o ChessEngine 
+/usr/bin/c++ CMakeFiles/ChessEngine.dir/src/main.cpp.o CMakeFiles/ChessEngine.dir/src/Board.cpp.o CMakeFiles/ChessEngine.dir/src/Move.cpp.o CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.o -o ChessEngine 

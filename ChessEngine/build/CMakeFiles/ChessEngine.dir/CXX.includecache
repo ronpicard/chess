@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+../include/AIPlayer.h
+Board.h
+../include/Board.h
+Move.h
+../include/Move.h
+
 ../include/Board.h
 vector
 -
@@ -20,10 +26,10 @@ unordered_map
 Board.h
 ../include/Board.h
 
-/workspaces/chess/ChessEngine/src/Move.cpp
-Move.h
-/workspaces/chess/ChessEngine/src/Move.h
-functional
+/workspaces/chess/ChessEngine/src/AIPlayer.cpp
+AIPlayer.h
+/workspaces/chess/ChessEngine/src/AIPlayer.h
+algorithm
 -
 
 /workspaces/chess/ChessEngine/src/main.cpp
@@ -37,4 +43,6 @@ Board.h
 /workspaces/chess/ChessEngine/src/Board.h
 Move.h
 /workspaces/chess/ChessEngine/src/Move.h
+AIPlayer.h
+/workspaces/chess/ChessEngine/src/AIPlayer.h
 

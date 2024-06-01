@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/Board.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/Move.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/main.cpp.o"

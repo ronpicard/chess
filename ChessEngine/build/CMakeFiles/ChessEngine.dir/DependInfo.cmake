@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/workspaces/chess/ChessEngine/src/AIPlayer.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.o"
   "/workspaces/chess/ChessEngine/src/Board.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Board.cpp.o"
   "/workspaces/chess/ChessEngine/src/Move.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Move.cpp.o"
   "/workspaces/chess/ChessEngine/src/main.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/main.cpp.o"

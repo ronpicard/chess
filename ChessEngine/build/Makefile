@@ -142,6 +142,33 @@ ChessEngine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/build
 .PHONY : ChessEngine/fast
 
+src/AIPlayer.o: src/AIPlayer.cpp.o
+
+.PHONY : src/AIPlayer.o
+
+# target to build an object file
+src/AIPlayer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.o
+.PHONY : src/AIPlayer.cpp.o
+
+src/AIPlayer.i: src/AIPlayer.cpp.i
+
+.PHONY : src/AIPlayer.i
+
+# target to preprocess a source file
+src/AIPlayer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.i
+.PHONY : src/AIPlayer.cpp.i
+
+src/AIPlayer.s: src/AIPlayer.cpp.s
+
+.PHONY : src/AIPlayer.s
+
+# target to generate assembly for a file
+src/AIPlayer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/AIPlayer.cpp.s
+.PHONY : src/AIPlayer.cpp.s
+
 src/Board.o: src/Board.cpp.o
 
 .PHONY : src/Board.o
@@ -232,6 +259,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ChessEngine"
+	@echo "... src/AIPlayer.o"
+	@echo "... src/AIPlayer.i"
+	@echo "... src/AIPlayer.s"
 	@echo "... src/Board.o"
 	@echo "... src/Board.i"
 	@echo "... src/Board.s"

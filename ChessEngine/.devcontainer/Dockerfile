@@ -4,6 +4,11 @@ FROM registry1.dso.mil/ironbank/redhat/ubi8/ubi-minimal:latest
 # Install necessary packages
 RUN microdnf install -y cmake gcc gcc-c++ make && microdnf clean all
 
+# Install nlohmann-json package
+RUN microdnf install -y wget && \
+    wget https://github.com/nlohmann/json/releases/download/v3.10.5/json.hpp -P /usr/include/ && \
+    microdnf clean all
+
 # Create a user for VS Code
 ARG USERNAME=vscode
 ARG USER_UID=1000

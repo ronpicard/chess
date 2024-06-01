@@ -3,6 +3,7 @@
 #include <vector>
 #include "Board.h"
 #include "Move.h"
+#include "AIPlayer.h"
 
 void printValidMoves(const std::vector<MoveData>& moves);
 MoveData getRandomMove(const std::vector<MoveData>& validMoves);
@@ -10,6 +11,7 @@ MoveData getRandomMove(const std::vector<MoveData>& validMoves);
 int main() {
     Board board;
     Move move(board);
+    AIPlayer aiPlayer(board, move, 3); // Configure the depth as needed
     bool whiteTurn = true;
 
     while (true) {
@@ -28,14 +30,12 @@ int main() {
             std::cout << (whiteTurn ? "White" : "Black") << " is in check." << std::endl;
         }
 
-        std::vector<MoveData> validMoves = move.getAllValidMoves(currentColor);
-
-        if (validMoves.empty()) {
-            std::cout << (whiteTurn ? "White" : "Black") << " has no valid moves. Game over." << std::endl;
-            break;
+        MoveData selectedMove;
+        if (currentColor == Color::White) {
+            selectedMove = aiPlayer.getBestMove(currentColor);
+        } else {
+            selectedMove = aiPlayer.getBestMove(currentColor);
         }
-
-        MoveData selectedMove = getRandomMove(validMoves);
 
         std::cout << (whiteTurn ? "White" : "Black") << "'s move: (" 
                   << selectedMove.startX << ", " << selectedMove.startY << ") to ("
