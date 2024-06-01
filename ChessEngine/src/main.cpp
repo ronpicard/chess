@@ -16,6 +16,18 @@ int main() {
         board.printBoard();
 
         Color currentColor = whiteTurn ? Color::White : Color::Black;
+        if (move.isCheckmate(currentColor)) {
+            std::cout << (whiteTurn ? "White" : "Black") << " is in checkmate. Game over." << std::endl;
+            break;
+        }
+        if (move.isStalemate(currentColor)) {
+            std::cout << (whiteTurn ? "White" : "Black") << " is in stalemate. Game over." << std::endl;
+            break;
+        }
+        if (move.isKingInCheck(currentColor)) {
+            std::cout << (whiteTurn ? "White" : "Black") << " is in check." << std::endl;
+        }
+
         std::vector<MoveData> validMoves = move.getAllValidMoves(currentColor);
 
         if (validMoves.empty()) {

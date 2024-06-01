@@ -14,12 +14,16 @@ public:
     Move(Board& board);
     bool makeMove(int startX, int startY, int endX, int endY);
     std::vector<MoveData> getAllValidMoves(Color color) const;
+    bool isKingInCheck(Color color) const;
+    bool isCheckmate(Color color) const;
+    bool isStalemate(Color color) const;
 
 private:
     Board& board;
 
     bool isLegalMove(int startX, int startY, int endX, int endY) const;
     bool isPathClear(int startX, int startY, int endX, int endY) const;
+    bool moveResolvesCheck(const MoveData& move, Color color) const;
 
     bool isLegalPawnMove(int startX, int startY, int endX, int endY) const;
     bool isLegalKnightMove(int startX, int startY, int endX, int endY) const;

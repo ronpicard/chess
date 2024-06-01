@@ -119,7 +119,7 @@ std::vector<MoveData> Move::getAllValidMoves(Color color) const {
 
             for (int endY = 0; endY < 8; ++endY) {
                 for (int endX = 0; endX < 8; ++endX) {
-                    if (isLegalMove(startX, startY, endX, endY)) {
+                    if (isLegalMove(startX, startY, endX, endY) && moveResolvesCheck({startX, startY, endX, endY}, color)) {
                         validMoves.push_back({startX, startY, endX, endY});
                     }
                 }
@@ -128,4 +128,74 @@ std::vector<MoveData> Move::getAllValidMoves(Color color) const {
     }
 
     return validMoves;
+}
+
+bool Move::moveResolvesCheck(const MoveData& move, Color color) const {
+    // Perform the move
+    Square temp = board.board[move.endY][move.endX];
+    board.board[move.endY][move.endX] = board.board[move.startY][move.startX];
+    board.board[move.startY][move.startX] = {Piece::Empty, Color::None};
+
+    bool stillInCheck = isKingInCheck(color);
+
+    // Undo the move
+    board.board[move.startY][move.startX] = board.board[move.endY][move.endX];
+    board.board[move.endY][move.endX] = temp;
+
+    return !stillInCheck;
+}
+
+bool Move::isKingInCheck(Color color) const {
+    // Find the position of the king
+    int kingX = -1, kingY = -1;
+    for (int y = 0; y < 8; ++y) {
+        for (int x = 0; x < 8; ++x) {
+            if (board.board[y][x].piece == Piece::King && board.board[y][x].color == color) {
+                kingX = x;
+                kingY = y;
+                break;
+            }
+        }
+        if (kingX != -1) break;
+    }
+
+    if (kingX == -1) return false; // King not found (should not happen in a valid game)
+
+    // Check if any of the opponent's pieces can move to the king's position
+    Color opponentColor = (color == Color::White) ? Color::Black : Color::White;
+    for (int y = 0; y < 8; ++y) {
+        for (int x = 0; x < 8; ++x) {
+            if (board.board[y][x].color == opponentColor && isLegalMove(x, y, kingX, kingY)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Move::isCheckmate(Color color) const {
+    if (!isKingInCheck(color)) {
+        return false;
+    }
+
+    // Check if the player can make any valid move to get out of check
+    std::vector<MoveData> validMoves = getAllValidMoves(color);
+    for (const auto& move : validMoves) {
+        if (moveResolvesCheck(move, color)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Move::isStalemate(Color color) const {
+    if (isKingInCheck(color)) {
+        return false;
+    }
+
+    // Check if the player can make any valid move
+    std::vector<MoveData> validMoves = getAllValidMoves(color);
+    return validMoves.empty();
 }
