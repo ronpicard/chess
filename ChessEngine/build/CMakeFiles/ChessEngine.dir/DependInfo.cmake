@@ -5,10 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/workspaces/chess/ChessEngine/src/Board.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Board.cpp.o"
-  "/workspaces/chess/ChessEngine/src/ChessEngine.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o"
-  "/workspaces/chess/ChessEngine/src/Evaluator.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o"
-  "/workspaces/chess/ChessEngine/src/Piece.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Piece.cpp.o"
-  "/workspaces/chess/ChessEngine/src/Solver.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Solver.cpp.o"
+  "/workspaces/chess/ChessEngine/src/Move.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/Move.cpp.o"
   "/workspaces/chess/ChessEngine/src/main.cpp" "/workspaces/chess/ChessEngine/build/CMakeFiles/ChessEngine.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

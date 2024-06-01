@@ -3,33 +3,12 @@
 
 CMakeFiles/ChessEngine.dir/src/Board.cpp.o
  ../include/Board.h
- ../include/Piece.h
  /workspaces/chess/ChessEngine/src/Board.cpp
-CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o
+CMakeFiles/ChessEngine.dir/src/Move.cpp.o
  ../include/Board.h
- ../include/ChessEngine.h
- ../include/Evaluator.h
- ../include/Piece.h
- ../include/Solver.h
- /workspaces/chess/ChessEngine/src/ChessEngine.cpp
-CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o
- ../include/Board.h
- ../include/Evaluator.h
- ../include/Piece.h
- /workspaces/chess/ChessEngine/src/Evaluator.cpp
-CMakeFiles/ChessEngine.dir/src/Piece.cpp.o
- ../include/Piece.h
- /workspaces/chess/ChessEngine/src/Piece.cpp
-CMakeFiles/ChessEngine.dir/src/Solver.cpp.o
- ../include/Board.h
- ../include/Evaluator.h
- ../include/Piece.h
- ../include/Solver.h
- /workspaces/chess/ChessEngine/src/Solver.cpp
+ ../include/Move.h
+ /workspaces/chess/ChessEngine/src/Move.cpp
 CMakeFiles/ChessEngine.dir/src/main.cpp.o
  ../include/Board.h
- ../include/ChessEngine.h
- ../include/Evaluator.h
- ../include/Piece.h
- ../include/Solver.h
+ ../include/Move.h
  /workspaces/chess/ChessEngine/src/main.cpp

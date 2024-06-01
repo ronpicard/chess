@@ -7,30 +7,32 @@
 #IncludeRegexTransform: 
 
 ../include/Board.h
-Piece.h
-../include/Piece.h
 vector
--
-memory
 -
 string
 -
 
-../include/Piece.h
+../include/Move.h
+Board.h
+../include/Board.h
 
 /workspaces/chess/ChessEngine/src/Board.cpp
 Board.h
 /workspaces/chess/ChessEngine/src/Board.h
 iostream
 -
-memory
+
+/workspaces/chess/ChessEngine/src/Move.cpp
+Move.h
+/workspaces/chess/ChessEngine/src/Move.h
+
+/workspaces/chess/ChessEngine/src/main.cpp
+iostream
 -
-utility
+random
 -
-cctype
--
-cmath
--
-sstream
--
+Board.h
+/workspaces/chess/ChessEngine/src/Board.h
+Move.h
+/workspaces/chess/ChessEngine/src/Move.h
 

@@ -169,113 +169,32 @@ src/Board.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Board.cpp.s
 .PHONY : src/Board.cpp.s
 
-src/ChessEngine.o: src/ChessEngine.cpp.o
+src/Move.o: src/Move.cpp.o
 
-.PHONY : src/ChessEngine.o
-
-# target to build an object file
-src/ChessEngine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.o
-.PHONY : src/ChessEngine.cpp.o
-
-src/ChessEngine.i: src/ChessEngine.cpp.i
-
-.PHONY : src/ChessEngine.i
-
-# target to preprocess a source file
-src/ChessEngine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.i
-.PHONY : src/ChessEngine.cpp.i
-
-src/ChessEngine.s: src/ChessEngine.cpp.s
-
-.PHONY : src/ChessEngine.s
-
-# target to generate assembly for a file
-src/ChessEngine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessEngine.cpp.s
-.PHONY : src/ChessEngine.cpp.s
-
-src/Evaluator.o: src/Evaluator.cpp.o
-
-.PHONY : src/Evaluator.o
+.PHONY : src/Move.o
 
 # target to build an object file
-src/Evaluator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.o
-.PHONY : src/Evaluator.cpp.o
+src/Move.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Move.cpp.o
+.PHONY : src/Move.cpp.o
 
-src/Evaluator.i: src/Evaluator.cpp.i
+src/Move.i: src/Move.cpp.i
 
-.PHONY : src/Evaluator.i
-
-# target to preprocess a source file
-src/Evaluator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.i
-.PHONY : src/Evaluator.cpp.i
-
-src/Evaluator.s: src/Evaluator.cpp.s
-
-.PHONY : src/Evaluator.s
-
-# target to generate assembly for a file
-src/Evaluator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluator.cpp.s
-.PHONY : src/Evaluator.cpp.s
-
-src/Piece.o: src/Piece.cpp.o
-
-.PHONY : src/Piece.o
-
-# target to build an object file
-src/Piece.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Piece.cpp.o
-.PHONY : src/Piece.cpp.o
-
-src/Piece.i: src/Piece.cpp.i
-
-.PHONY : src/Piece.i
+.PHONY : src/Move.i
 
 # target to preprocess a source file
-src/Piece.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Piece.cpp.i
-.PHONY : src/Piece.cpp.i
+src/Move.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Move.cpp.i
+.PHONY : src/Move.cpp.i
 
-src/Piece.s: src/Piece.cpp.s
+src/Move.s: src/Move.cpp.s
 
-.PHONY : src/Piece.s
-
-# target to generate assembly for a file
-src/Piece.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Piece.cpp.s
-.PHONY : src/Piece.cpp.s
-
-src/Solver.o: src/Solver.cpp.o
-
-.PHONY : src/Solver.o
-
-# target to build an object file
-src/Solver.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.o
-.PHONY : src/Solver.cpp.o
-
-src/Solver.i: src/Solver.cpp.i
-
-.PHONY : src/Solver.i
-
-# target to preprocess a source file
-src/Solver.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.i
-.PHONY : src/Solver.cpp.i
-
-src/Solver.s: src/Solver.cpp.s
-
-.PHONY : src/Solver.s
+.PHONY : src/Move.s
 
 # target to generate assembly for a file
-src/Solver.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Solver.cpp.s
-.PHONY : src/Solver.cpp.s
+src/Move.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Move.cpp.s
+.PHONY : src/Move.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -316,18 +235,9 @@ help:
 	@echo "... src/Board.o"
 	@echo "... src/Board.i"
 	@echo "... src/Board.s"
-	@echo "... src/ChessEngine.o"
-	@echo "... src/ChessEngine.i"
-	@echo "... src/ChessEngine.s"
-	@echo "... src/Evaluator.o"
-	@echo "... src/Evaluator.i"
-	@echo "... src/Evaluator.s"
-	@echo "... src/Piece.o"
-	@echo "... src/Piece.i"
-	@echo "... src/Piece.s"
-	@echo "... src/Solver.o"
-	@echo "... src/Solver.i"
-	@echo "... src/Solver.s"
+	@echo "... src/Move.o"
+	@echo "... src/Move.i"
+	@echo "... src/Move.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -1,320 +1,51 @@
 #include "Board.h"
 #include <iostream>
-#include <memory>
-#include <utility>
-#include <cctype>
-#include <cmath>
-#include <sstream>
 
 Board::Board() {
-    board.resize(8);
-    for (auto& row : board) {
-        row.resize(8);
-    }
+    initializeBoard();
 }
 
-void Board::initialize() {
-    // Initialize pawns
+void Board::initializeBoard() {
+    // Initialize an 8x8 board with empty squares
+    board.resize(8, std::vector<Square>(8, {Piece::Empty, Color::None}));
+
+    // Set up pawns
     for (int i = 0; i < 8; ++i) {
-        board[1][i] = std::make_unique<Piece>('P'); // White pawns
-        board[6][i] = std::make_unique<Piece>('p'); // Black pawns
+        board[1][i] = {Piece::Pawn, Color::White};
+        board[6][i] = {Piece::Pawn, Color::Black};
     }
 
-    // Initialize rooks
-    board[0][0] = std::make_unique<Piece>('R'); // White rook
-    board[0][7] = std::make_unique<Piece>('R');
-    board[7][0] = std::make_unique<Piece>('r'); // Black rook
-    board[7][7] = std::make_unique<Piece>('r');
+    // Set up other pieces
+    std::vector<Piece> pieces = {Piece::Rook, Piece::Knight, Piece::Bishop, Piece::Queen, Piece::King, Piece::Bishop, Piece::Knight, Piece::Rook};
 
-    // Initialize knights
-    board[0][1] = std::make_unique<Piece>('N'); // White knight
-    board[0][6] = std::make_unique<Piece>('N');
-    board[7][1] = std::make_unique<Piece>('n'); // Black knight
-    board[7][6] = std::make_unique<Piece>('n');
-
-    // Initialize bishops
-    board[0][2] = std::make_unique<Piece>('B'); // White bishop
-    board[0][5] = std::make_unique<Piece>('B');
-    board[7][2] = std::make_unique<Piece>('b'); // Black bishop
-    board[7][5] = std::make_unique<Piece>('b');
-
-    // Initialize queens
-    board[0][3] = std::make_unique<Piece>('Q'); // White queen
-    board[7][3] = std::make_unique<Piece>('q'); // Black queen
-
-    // Initialize kings
-    board[0][4] = std::make_unique<Piece>('K'); // White king
-    board[7][4] = std::make_unique<Piece>('k'); // Black king
-}
-
-bool Board::movePiece(int startX, int startY, int endX, int endY) {
-    if (!isMoveLegal(startX, startY, endX, endY)) {
-        return false;
+    for (int i = 0; i < 8; ++i) {
+        board[0][i] = {pieces[i], Color::White};
+        board[7][i] = {pieces[i], Color::Black};
     }
-
-    // Move the piece using std::move
-    board[endX][endY] = std::move(board[startX][startY]);
-    board[startX][startY] = nullptr;
-    return true;
-}
-
-bool Board::isMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (startX < 0 || startX >= 8 || startY < 0 || startY >= 8 ||
-        endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        std::cout << "Move out of bounds: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
-        return false;
-    }
-
-    if (board[startX][startY] == nullptr) {
-        std::cout << "No piece at start position: (" << startX << ", " << startY << ")" << std::endl;
-        return false;
-    }
-
-    char piece = board[startX][startY]->getSymbol();
-    bool isWhite = isupper(piece);
-
-    // Check if the destination square contains a piece of the same color
-    if (board[endX][endY] != nullptr) {
-        char targetPiece = board[endX][endY]->getSymbol();
-        if ((isWhite && isupper(targetPiece)) || (!isWhite && islower(targetPiece))) {
-            std::cout << "Destination contains a piece of the same color: (" << endX << ", " << endY << ")" << std::endl;
-            return false; // Can't capture own piece
-        }
-    }
-
-    bool isLegal = false;
-    switch (tolower(piece)) {
-        case 'p': isLegal = isPawnMoveLegal(startX, startY, endX, endY); break;
-        case 'r': isLegal = isRookMoveLegal(startX, startY, endX, endY); break;
-        case 'n': isLegal = isKnightMoveLegal(startX, startY, endX, endY); break;
-        case 'b': isLegal = isBishopMoveLegal(startX, startY, endX, endY); break;
-        case 'q': isLegal = isQueenMoveLegal(startX, startY, endX, endY); break;
-        case 'k': isLegal = isKingMoveLegal(startX, startY, endX, endY); break;
-        default: isLegal = false;
-    }
-
-    if (!isLegal) {
-        std::cout << "Move not legal for piece " << piece << ": (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
-    }
-
-    return isLegal;
-}
-
-bool Board::isPathClear(int startX, int startY, int endX, int endY) const {
-    int dx = endX - startX;
-    int dy = endY - startY;
-    int steps = std::max(std::abs(dx), std::abs(dy));
-    int stepX = (dx == 0) ? 0 : dx / std::abs(dx);
-    int stepY = (dy == 0) ? 0 : dy / std::abs(dy);
-
-    for (int i = 1; i < steps; ++i) {
-        int x = startX + i * stepX;
-        int y = startY + i * stepY;
-        if (board[x][y] != nullptr) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-bool Board::isPawnMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    char piece = board[startX][startY]->getSymbol();
-    bool isWhite = isupper(piece);
-    int direction = isWhite ? -1 : 1;
-    int startRow = isWhite ? 6 : 1;
-
-    int dx = endX - startX;
-    int dy = endY - startY;
-
-    std::cout << "Checking pawn move: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
-
-    // Normal move (one square forward)
-    if (dy == 0 && dx == direction && board[endX][endY] == nullptr) {
-        std::cout << "Normal move legal for pawn." << std::endl;
-        return true;
-    }
-
-    // Double move from starting position (two squares forward)
-    if (startX == startRow && dy == 0 && dx == 2 * direction &&
-        board[endX][endY] == nullptr && board[startX + direction][startY] == nullptr) {
-        std::cout << "Double move legal for pawn." << std::endl;
-        return true;
-    }
-
-    // Capture move (one square diagonally)
-    if (std::abs(dy) == 1 && dx == direction && board[endX][endY] != nullptr) {
-        std::cout << "Capture move legal for pawn." << std::endl;
-        return true;
-    }
-
-    std::cout << "Pawn move not legal." << std::endl;
-    return false;
-}
-
-bool Board::isRookMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    if (startX == endX || startY == endY) {
-        return isPathClear(startX, startY, endX, endY);
-    }
-    return false;
-}
-
-bool Board::isKnightMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    int dx = std::abs(endX - startX);
-    int dy = std::abs(endY - startY);
-    return (dx == 2 && dy == 1) || (dx == 1 && dy == 2);
-}
-
-bool Board::isBishopMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    int dx = std::abs(endX - startX);
-    int dy = std::abs(endY - startY);
-    return dx == dy && isPathClear(startX, startY, endX, endY);
-}
-
-bool Board::isQueenMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    int dx = std::abs(endX - startX);
-    int dy = std::abs(endY - startY);
-    return (dx == dy || startX == endX || startY == endY) && isPathClear(startX, startY, endX, endY);
-}
-
-bool Board::isKingMoveLegal(int startX, int startY, int endX, int endY) const {
-    // Check if the move is within the bounds of the board
-    if (endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
-    int dx = std::abs(endX - startX);
-    int dy = std::abs(endY - startY);
-    return dx <= 1 && dy <= 1;
 }
 
 void Board::printBoard() const {
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (board[i][j] != nullptr) {
-                std::cout << board[i][j]->getSymbol() << " ";
-            } else {
-                std::cout << ". ";
+    for (const auto& row : board) {
+        for (const auto& square : row) {
+            char pieceChar;
+            switch (square.piece) {
+                case Piece::Empty: pieceChar = '.'; break;
+                case Piece::Pawn: pieceChar = 'P'; break;
+                case Piece::Knight: pieceChar = 'N'; break;
+                case Piece::Bishop: pieceChar = 'B'; break;
+                case Piece::Rook: pieceChar = 'R'; break;
+                case Piece::Queen: pieceChar = 'Q'; break;
+                case Piece::King: pieceChar = 'K'; break;
+                default: pieceChar = '?'; break;
             }
+
+            if (square.color == Color::Black) {
+                pieceChar = tolower(pieceChar);
+            }
+
+            std::cout << pieceChar << " ";
         }
         std::cout << std::endl;
     }
-}
 
-Board Board::clone() const {
-    Board newBoard;
-    newBoard.board.resize(8);
-    for (int i = 0; i < 8; ++i) {
-        newBoard.board[i].resize(8);
-        for (int j = 0; j < 8; ++j) {
-            if (board[i][j] != nullptr) {
-                newBoard.board[i][j] = std::make_unique<Piece>(board[i][j]->getSymbol());
-            }
-        }
-    }
-    return newBoard;
-}
-
-Piece* Board::getPiece(int x, int y) const {
-    if (x < 0 || x >= 8 || y < 0 || y >= 8) {
-        return nullptr;
-    }
-    return board[x][y].get();
-}
-
-std::string Board::getBoardStateHash() const {
-    std::stringstream ss;
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (board[i][j] != nullptr) {
-                ss << board[i][j]->getSymbol();
-            } else {
-                ss << '.';
-            }
-        }
-    }
-    return ss.str();
-}
-
-bool Board::isInCheck(bool isWhite) const {
-    int kingX = -1, kingY = -1;
-    char kingSymbol = isWhite ? 'K' : 'k';
-
-    // Find the king
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (board[i][j] != nullptr && board[i][j]->getSymbol() == kingSymbol) {
-                kingX = i;
-                kingY = j;
-                break;
-            }
-        }
-    }
-
-    // Check if any opposing piece can move to the king's position
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (board[i][j] != nullptr) {
-                char piece = board[i][j]->getSymbol();
-                // Only consider opponent's pieces
-                if (isWhite != isupper(piece)) {
-                    if (isMoveLegal(i, j, kingX, kingY)) {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-
-    return false;
-}
-
-bool Board::hasLegalMoves(bool isWhite) const {
-    for (int startX = 0; startX < 8; ++startX) {
-        for (int startY = 0; startY < 8; ++startY) {
-            if (board[startX][startY] != nullptr && (isWhite == isupper(board[startX][startY]->getSymbol()))) {
-                std::cout << "Checking moves for piece at (" << startX << ", " << startY << ") - " << board[startX][startY]->getSymbol() << std::endl;
-                for (int endX = 0; endX < 8; ++endX) {
-                    for (int endY = 0; endY < 8; ++endY) {
-                        if (isMoveLegal(startX, startY, endX, endY)) {
-                            Board newBoard = clone();
-                            newBoard.movePiece(startX, startY, endX, endY);
-                            if (!newBoard.isInCheck(isWhite)) {
-                                std::cout << "Legal move found: (" << startX << ", " << startY << ") -> (" << endX << ", " << endY << ")" << std::endl;
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    std::cout << "No legal moves found." << std::endl;
-    return false;
 }
