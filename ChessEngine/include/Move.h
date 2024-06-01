@@ -1,16 +1,22 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+#include <vector>
 #include "Board.h"
+
+struct MoveData {
+    int startX, startY;
+    int endX, endY;
+};
 
 class Move {
 public:
     Move(Board& board);
     bool makeMove(int startX, int startY, int endX, int endY);
-    Board& board;
-    
-private:
+    std::vector<MoveData> getAllValidMoves(Color color) const;
 
+private:
+    Board& board;
 
     bool isLegalMove(int startX, int startY, int endX, int endY) const;
     bool isPathClear(int startX, int startY, int endX, int endY) const;

@@ -13,23 +13,17 @@ string
 -
 
 ../include/Move.h
+vector
+-
 Board.h
 ../include/Board.h
-
-/workspaces/chess/ChessEngine/src/Board.cpp
-Board.h
-/workspaces/chess/ChessEngine/src/Board.h
-iostream
--
-
-/workspaces/chess/ChessEngine/src/Move.cpp
-Move.h
-/workspaces/chess/ChessEngine/src/Move.h
 
 /workspaces/chess/ChessEngine/src/main.cpp
 iostream
 -
 random
+-
+vector
 -
 Board.h
 /workspaces/chess/ChessEngine/src/Board.h

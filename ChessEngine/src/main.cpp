@@ -1,9 +1,11 @@
 #include <iostream>
 #include <random>
+#include <vector>
 #include "Board.h"
 #include "Move.h"
 
-bool makeRandomMove(Move& move, bool whiteTurn);
+void printValidMoves(const std::vector<MoveData>& moves);
+MoveData getRandomMove(const std::vector<MoveData>& validMoves);
 
 int main() {
     Board board;
@@ -11,6 +13,29 @@ int main() {
     bool whiteTurn = true;
 
     while (true) {
+        board.printBoard();
+
+        Color currentColor = whiteTurn ? Color::White : Color::Black;
+        std::vector<MoveData> validMoves = move.getAllValidMoves(currentColor);
+
+        if (validMoves.empty()) {
+            std::cout << (whiteTurn ? "White" : "Black") << " has no valid moves. Game over." << std::endl;
+            break;
+        }
+
+        MoveData selectedMove = getRandomMove(validMoves);
+
+        std::cout << (whiteTurn ? "White" : "Black") << "'s move: (" 
+                  << selectedMove.startX << ", " << selectedMove.startY << ") to ("
+                  << selectedMove.endX << ", " << selectedMove.endY << ")" << std::endl;
+
+        if (move.makeMove(selectedMove.startX, selectedMove.startY, selectedMove.endX, selectedMove.endY)) {
+            std::cout << "Move successful" << std::endl;
+        } else {
+            std::cout << "Move failed" << std::endl;
+            continue; // If the move is invalid, the same player tries again
+        }
+
         board.printBoard();
 
         std::cout << "Do you want to continue? (y/n): ";
@@ -21,38 +46,20 @@ int main() {
         }
 
         whiteTurn = !whiteTurn; // Switch turns
-
-        // Make a random move for the opposite player
-        if (!makeRandomMove(move, whiteTurn)) {
-            std::cout << "No valid moves available for " << (whiteTurn ? "White" : "Black") << std::endl;
-            break;
-        }
-
-        whiteTurn = !whiteTurn; // Switch back to the user's turn
     }
 
     return 0;
 }
 
-bool makeRandomMove(Move& move, bool whiteTurn) {
+void printValidMoves(const std::vector<MoveData>& moves) {
+    for (const auto& move : moves) {
+        std::cout << "Move from (" << move.startX << ", " << move.startY << ") to (" << move.endX << ", " << move.endY << ")" << std::endl;
+    }
+}
+
+MoveData getRandomMove(const std::vector<MoveData>& validMoves) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(0, 7);
-
-    for (int attempt = 0; attempt < 100; ++attempt) { // Try up to 100 random moves
-        int startX = dist(gen);
-        int startY = dist(gen);
-        int endX = dist(gen);
-        int endY = dist(gen);
-
-        const Square& startSquare = move.board.board[startY][startX];
-        if ((whiteTurn && startSquare.color == Color::White) || (!whiteTurn && startSquare.color == Color::Black)) {
-            if (move.makeMove(startX, startY, endX, endY)) {
-                std::cout << (whiteTurn ? "White" : "Black") << " made a random move from (" << startX << ", " << startY << ") to (" << endX << ", " << endY << ")" << std::endl;
-                return true;
-            }
-        }
-    }
-
-    return false; // No valid move found after 100 attempts
+    std::uniform_int_distribution<> dist(0, validMoves.size() - 1);
+    return validMoves[dist(gen)];
 }

@@ -3,12 +3,6 @@
 Move::Move(Board& board) : board(board) {}
 
 bool Move::makeMove(int startX, int startY, int endX, int endY) {
-    // Validate positions (simple bounds check for now)
-    if (startX < 0 || startX >= 8 || startY < 0 || startY >= 8 ||
-        endX < 0 || endX >= 8 || endY < 0 || endY >= 8) {
-        return false;
-    }
-
     if (!isLegalMove(startX, startY, endX, endY)) {
         return false;
     }
@@ -111,4 +105,27 @@ bool Move::isPathClear(int startX, int startY, int endX, int endY) const {
     }
 
     return true;
+}
+
+std::vector<MoveData> Move::getAllValidMoves(Color color) const {
+    std::vector<MoveData> validMoves;
+
+    for (int startY = 0; startY < 8; ++startY) {
+        for (int startX = 0; startX < 8; ++startX) {
+            const Square& startSquare = board.board[startY][startX];
+            if (startSquare.color != color) {
+                continue; // Skip pieces of the opposite color and empty squares
+            }
+
+            for (int endY = 0; endY < 8; ++endY) {
+                for (int endX = 0; endX < 8; ++endX) {
+                    if (isLegalMove(startX, startY, endX, endY)) {
+                        validMoves.push_back({startX, startY, endX, endY});
+                    }
+                }
+            }
+        }
+    }
+
+    return validMoves;
 }
